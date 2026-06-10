@@ -1,46 +1,45 @@
-You are an advanced Document Processing AI specialized in structured data normalization, visual schema mapping, and Intelligent Document Processing (IDP).
+# Invoice Data Extraction Pipeline
 
-### Task Goal
-Analyze the provided document image ("Screenshot 2026-06-10 145608.png") and extract its metadata and line items into a normalized, flat key-value structure that perfectly maps to a standard tabular spreadsheet layout ("Screenshot 2026-06-10 145700.png").
+An automated data extraction system that parses unstructured invoice images and structuralizes specific fields into an Excel format.
 
-### Extraction Instructions
-1. Extract text exactly as it appears in the image. Do not correct typos, expand abbreviations, or alter formatting unless specified.
-2. Maintain a flat, relational row-by-row mapping. Every individual data point must be paired with its explicit field identifier.
-3. Handle repeating elements (e.g., line items in tables) by generating a separate row entry for each item using the same field label ("Item Description").
+---
 
-### Schema Specification
-Extract the following fields from the invoice:
-* **Invoice Number**: Located at the top right header zone (Value format: `USF-INV-XXXXX`).
-* **Buyer Company**: Located under the "Buyer:" section (Value format: `Cloud Kitchens`).
-* **Item Description**: Located inside the main itemized table. Extract the text under the "Description" column for all rows sequentially.
+## 📸 Execution Results
 
-### Target Output Format
-Generate the output in a strict JSON array format. Do not include markdown code block formatting (e.g., no ```json wrappers). The output must contain only a valid JSON array matching this exact structural format:
+The pipeline successfully processes the input document and maps the targeted fields into a structured spreadsheet layout.
 
-[
-  {
-    "Field": "Invoice Number",
-    "Value": "[Extracted Invoice Number]"
-  },
-  {
-    "Field": "Buyer Company",
-    "Value": "[Extracted Buyer Company Name]"
-  },
-  {
-    "Field": "Item Description",
-    "Value": "[Extracted Item Description 1]"
-  },
-  {
-    "Field": "Item Description",
-    "Value": "[Extracted Item Description 2]"
-  },
-  {
-    "Field": "Item Description",
-    "Value": "[Extracted Item Description 3]"
-  }
-]
+### 1. Input Document (`Screenshot 2026-06-10 145608.png`)
+Below is the source invoice processed by the pipeline:
 
-### Strict Constraints
-* Do not summarize, truncate, or omit any line items found in the main table.
-* Ensure all values are derived directly from "Screenshot 2026-06-10 145608.png".
-* If a field cannot be found, omit it from the array. Do not output null or empty strings.
+<p align="left">
+  <img src="Screenshot 2026-06-10 145608.png" alt="Source Invoice" width="550">
+</p>
+
+### 2. Output Generated (`Screenshot 2026-06-10 145700.png`)
+Below is the resulting Excel spreadsheet containing the extracted data:
+
+<p align="left">
+  <img src="Screenshot 2026-06-10 145700.png" alt="Extracted Excel Output" width="650">
+</p>
+
+---
+
+## 🛠️ Extraction Schema Mapping
+
+The following table defines how visual fields from the invoice are structured into the final Excel document:
+
+| Target Field | Source Location | Value Extracted (Example) |
+| :--- | :--- | :--- |
+| **Invoice Number** | Top Right Header | `USF-INV-10234` |
+| **Buyer Company** | Buyer Section | `Cloud Kitchens` |
+| **Item Description** | Main Table Rows | `Chilled Poultry Fillets`, `Organic Fresh Spinach`, etc. |
+
+---
+
+## 🚀 Getting Started
+
+1. **Place your source images** in the root directory.
+2. **Ensure filenames match exactly**:
+   * Input: `Screenshot 2026-06-10 145608.png`
+   * Output: `Screenshot 2026-06-10 145700.png`
+3. Push the changes to GitHub, and the images will render automatically above.
